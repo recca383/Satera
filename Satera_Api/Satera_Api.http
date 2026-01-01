@@ -1,0 +1,6 @@
+@Satera_Api_HostAddress = http://localhost:5189
+
+GET {{Satera_Api_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
