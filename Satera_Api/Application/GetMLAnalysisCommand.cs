@@ -1,4 +1,4 @@
 ﻿namespace Satera_Api.Application
 {
-    public record GetMLAnalysisCommand();
+    public record GetMLAnalysisCommand(string name);
 }

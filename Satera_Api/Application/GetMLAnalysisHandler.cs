@@ -3,11 +3,11 @@ namespace Satera_Api.Application
 {
     internal sealed class GetMLAnalysisHandler : IGetMLAnalysisHandler
     {
-        public Task Handle(GetMLAnalysisCommand command, CancellationToken cancellationToken)
+        public async Task<Result<string>> Handle(GetMLAnalysisCommand command, CancellationToken cancellationToken)
         {
-            Console.WriteLine("Hello");
+            string result = "Hello " + command.name;
 
-            return Task.CompletedTask;
+            return Result.Success(result);
         }
     }
 }

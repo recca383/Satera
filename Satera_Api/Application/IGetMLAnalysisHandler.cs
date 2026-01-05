@@ -4,6 +4,6 @@ namespace Satera_Api.Application
 {
     public interface IGetMLAnalysisHandler
     {
-        Task Handle(GetMLAnalysisCommand command, CancellationToken cancellationToken);
+        Task<Result<string>> Handle(GetMLAnalysisCommand command, CancellationToken cancellationToken);
     }
 }
