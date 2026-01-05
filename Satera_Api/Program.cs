@@ -20,15 +20,16 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
-var summaries = new[]
+app.MapPost("getMl/", async (
+                [FromBody]Request request,
+                IGetMLAnalysisHandler handler,
+                CancellationToken cancellationToken) =>
 {
-    "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
-};
+    var command = new GetMLAnalysisCommand(request.name);
 
-app.MapGet("/weatherforecast", () =>
-{
-    
-    return forecast;
+    var result = await handler.Handle(command, cancellationToken);
+
+    return result.Match(Results.Ok, CustomResults.Problem);
 });
 
 app.Run();
