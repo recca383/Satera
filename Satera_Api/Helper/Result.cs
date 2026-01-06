@@ -1,6 +1,6 @@
 ﻿using System.Diagnostics.CodeAnalysis;
 
-namespace Satera_Api;
+namespace Satera_Api.Helper;
 
 public class Result
 {
