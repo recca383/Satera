@@ -1,4 +1,4 @@
-﻿namespace Satera_Api;
+﻿namespace Satera_Api.Helper;
 
 public record Error
 {
