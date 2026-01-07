@@ -1,9 +1,10 @@
 ﻿using Microsoft.AspNetCore.Http.HttpResults;
+using Satera_Api.Helper;
 
 namespace Satera_Api.Application
 {
     public interface IGetMLAnalysisHandler
     {
-        Task<Result<string>> Handle(GetMLAnalysisCommand command, CancellationToken cancellationToken);
+        Task<Result<Response>> Handle(GetMLAnalysisCommand command, CancellationToken cancellationToken);
     }
 }

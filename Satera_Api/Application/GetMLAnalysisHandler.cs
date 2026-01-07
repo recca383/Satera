@@ -1,13 +1,25 @@
 ﻿
+using Satera_Api.Helper;
+
 namespace Satera_Api.Application
 {
     internal sealed class GetMLAnalysisHandler : IGetMLAnalysisHandler
     {
-        public async Task<Result<string>> Handle(GetMLAnalysisCommand command, CancellationToken cancellationToken)
+        public async Task<Result<Response>> Handle(GetMLAnalysisCommand command, CancellationToken cancellationToken)
         {
-            string result = "Hello " + command.name;
 
-            return Result.Success(result);
+            Response response = new Response
+            (
+                0.8f,
+                0.6f,
+                0.7f,
+                0.9f,
+                0.85f,
+                0.4f,
+                DateTime.UtcNow
+            );
+
+            return Result.Success(response);
         }
     }
 }
