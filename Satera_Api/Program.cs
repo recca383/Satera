@@ -1,6 +1,9 @@
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Satera_Api;
 using Satera_Api.Application;
+using Satera_Api.Helper;
+using Satera_Api.ML;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -9,6 +12,13 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddScoped<IGetMLAnalysisHandler, GetMLAnalysisHandler>();
+builder.Services.AddScoped<IDataPreparationHandler, DataPreparationHandler>();
+
+builder.Services.AddDbContext<AppDbContext>(options =>
+    options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection")));
+
+builder.Services.AddScoped<IAppDbContext, AppDbContext>();
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -23,6 +33,7 @@ app.UseHttpsRedirection();
 app.MapPost("getMl/", async (
                 [FromBody]Request request,
                 IGetMLAnalysisHandler handler,
+                IAppDbContext dbContext,
                 CancellationToken cancellationToken) =>
 {
     var command = new GetMLAnalysisCommand(request.name);
