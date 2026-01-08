@@ -50,7 +50,7 @@ app.MapPost("getMl/", async (
         request.Platform
         );
     
-
+    
     var result = await handler.Handle(command, cancellationToken);
 
     return testapp;
