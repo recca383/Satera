@@ -1,0 +1,9 @@
+{
+  "dependencies": {
+    "sqlite1": {
+      "type": "sqlite",
+      "connectionId": "ConnectionStrings:App_CategorizationDatabaseConnection",
+      "dynamicId": null
+    }
+  }
+}
