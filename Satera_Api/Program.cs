@@ -36,11 +36,24 @@ app.MapPost("getMl/", async (
                 IAppDbContext dbContext,
                 CancellationToken cancellationToken) =>
 {
-    var command = new GetMLAnalysisCommand(request.name);
+    var testapp = dbContext.App_Categories.FirstOrDefault();
+
+    var command = new GetMLAnalysisCommand(
+        request.Gwa,
+        request.TrackingDurationDays,
+        request.TotalScreenTime,
+        request.TotalAppsTracked,
+        request.Pickups,
+        request.DeviceUnlocks,
+        request.Apps,
+        request.CollectionTimestamp,
+        request.Platform
+        );
+    
 
     var result = await handler.Handle(command, cancellationToken);
 
-    return result.Match(Results.Ok, CustomResults.Problem);
+    return testapp;
 });
 
 app.Run();
