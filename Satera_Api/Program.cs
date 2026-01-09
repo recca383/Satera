@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Satera_Api;
 using Satera_Api.Application;
+using Satera_Api.Data;
 using Satera_Api.Helper;
 using Satera_Api.ML;
 
@@ -15,7 +16,7 @@ builder.Services.AddScoped<IGetMLAnalysisHandler, GetMLAnalysisHandler>();
 builder.Services.AddScoped<IDataPreparationHandler, DataPreparationHandler>();
 
 builder.Services.AddDbContext<AppDbContext>(options =>
-    options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection")));
+    options.UseSqlite(builder.Configuration.GetConnectionString("App_Categorization")));
 
 builder.Services.AddScoped<IAppDbContext, AppDbContext>();
 
