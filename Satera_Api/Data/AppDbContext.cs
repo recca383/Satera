@@ -1,16 +1,19 @@
 ﻿using ExcelToSQLiteConverter.Data;
 using Microsoft.EntityFrameworkCore;
 
-public class AppDbContext(
-    DbContextOptions<AppDbContext> options) 
-    : DbContext(options), IAppDbContext
+namespace Satera_Api.Data
 {
-    public DbSet<App_Category> App_Categories { get; set; }
-
-    protected override void OnModelCreating(ModelBuilder modelBuilder)
+    public class AppDbContext(
+        DbContextOptions<AppDbContext> options)
+        : DbContext(options), IAppDbContext
     {
-        modelBuilder.Entity<App_Category>(entity => entity.HasKey(row => row.Id));
-        base.OnModelCreating(modelBuilder);
+        public DbSet<App_Category> App_Categories { get; set; }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<App_Category>(entity => entity.HasKey(row => row.Id));
+            base.OnModelCreating(modelBuilder);
+        }
+
     }
-    
 }
