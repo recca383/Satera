@@ -7,7 +7,7 @@ namespace Satera_Api.ML
         IAppDbContext dbContext) : IDataPreparationHandler
     {
 
-        private const int FuzzyMatchThreshold = 75;
+        private const float FuzzyMatchThreshold = 0.75f;
 
         public async Task<DataPreparationResults> Handle(GetMLAnalysisCommand inputData, CancellationToken cancellation)
         {
