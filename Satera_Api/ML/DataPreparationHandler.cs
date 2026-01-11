@@ -4,7 +4,7 @@ using Satera_Api.Application;
 namespace Satera_Api.ML
 {
     public class DataPreparationHandler(
-        IAppDbContext dbContext,
+        IAppDbContext dbContext) : IDataPreparationHandler
     {
 
         private const int FuzzyMatchThreshold = 75;
