@@ -19,7 +19,24 @@ namespace Satera_Api.Application
                 DateTime.UtcNow
             );
 
-            return Result.Success(response);
+            return Result.Success(reponse);
+        }
+
+        private class Prediction
+        {
+
+            [ColumnName("label")]
+            public long[] PredictedLabel { get; set; }
+
+            [ColumnName("probabilities")]
+            public float[] Scores { get; set; }
+        }
+
+        public sealed class ModelInput
+        {
+            [VectorType(11)]
+            [ColumnName("float_input")]
+            public float[] Features { get; set; }
         }
     }
 }
