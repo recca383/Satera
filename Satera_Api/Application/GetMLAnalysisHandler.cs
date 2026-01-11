@@ -10,18 +10,20 @@ namespace Satera_Api.Application
     internal sealed class GetMLAnalysisHandler
         (
             IDataPreparationHandler dataPreparationHandler,
-            IConfiguration configuration
+            IHostEnvironment env
         ) : IGetMLAnalysisHandler
     {
 
         public async Task<Result<Response>> Handle(GetMLAnalysisCommand command, CancellationToken cancellationToken)
         {
-            MLContext mLContext = new MLContext();
+            MLContext mLContext = new();
+
+            var mlPath = Path.Combine(env.ContentRootPath, "Static", "xgboost_final_fixed.onnx");
 
             var datawView = mLContext.Data.LoadFromEnumerable(new List<ModelInput>());
             
             var pipeline = mLContext.Transforms.ApplyOnnxModel(
-                modelFile: configuration.GetValue<string>("MLModel"),
+                modelFile: mlPath,
                 inputColumnNames: new[] { "float_input" },
                 outputColumnNames: new[] { "label", "probabilities" });
 
@@ -80,17 +82,17 @@ namespace Satera_Api.Application
         {
 
             [ColumnName("label")]
-            public long[] PredictedLabel { get; set; }
+            public long[] PredictedLabel { get; set; } = [];
 
             [ColumnName("probabilities")]
-            public float[] Scores { get; set; }
+            public float[] Scores { get; set; } = [];
         }
 
         public sealed class ModelInput
         {
             [VectorType(11)]
             [ColumnName("float_input")]
-            public float[] Features { get; set; }
+            public required float[] Features { get; set; }
         }
     }
 }
