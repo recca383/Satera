@@ -15,8 +15,11 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddScoped<IGetMLAnalysisHandler, GetMLAnalysisHandler>();
 builder.Services.AddScoped<IDataPreparationHandler, DataPreparationHandler>();
 
+var env = builder.Environment;
+var dbPath = Path.Combine(env.ContentRootPath, "Static", "App_Categorization.db");
+
 builder.Services.AddDbContext<AppDbContext>(options =>
-    options.UseSqlite(builder.Configuration.GetConnectionString("App_Categorization")));
+    options.UseSqlite($"Data Source={dbPath}"));
 
 builder.Services.AddScoped<IAppDbContext, AppDbContext>();
 
@@ -50,6 +53,7 @@ app.MapPost("getMl/", async (
         request.Platform
         );
     
+
     
     var result = await handler.Handle(command, cancellationToken);
 
