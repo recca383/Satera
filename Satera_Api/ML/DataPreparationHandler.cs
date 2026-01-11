@@ -5,18 +5,17 @@ namespace Satera_Api.ML
 {
     public class DataPreparationHandler(
         IAppDbContext dbContext,
-        CancellationToken cancellation) : IDataPreparationHandler
     {
 
         private const int FuzzyMatchThreshold = 75;
 
-        public async Task<DataPreparationResults> Handle(GetMLAnalysisCommand inputData)
+        public async Task<DataPreparationResults> Handle(GetMLAnalysisCommand inputData, CancellationToken cancellation)
         {
 
             var appDictionary = await dbContext
                 .App_Categories
                 .AsNoTracking()
-                .ToDictionaryAsync(key => key.App_name, val => val.Final_Rating);
+                .ToDictionaryAsync(key => key.App_name, val => val.Final_Rating, cancellation);
 
             var gwaScaled = ScaleGwa(inputData.Gwa);
             var usageSeconds = inputData.TotalScreenTime;
