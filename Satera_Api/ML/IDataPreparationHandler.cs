@@ -4,6 +4,6 @@ namespace Satera_Api.ML
 {
     public interface IDataPreparationHandler
     {
-        Task<DataPreparationResults> Handle(GetMLAnalysisCommand inputData);
+        Task<DataPreparationResults> Handle(GetMLAnalysisCommand inputData, CancellationToken cancellation);
     }
 }
