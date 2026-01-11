@@ -91,7 +91,7 @@ namespace Satera_Api.ML
         private UsageGroups CategorizeAndAggregate(App[] apps, Dictionary<string, string> categoryLookup)
         {
             var categoryTotals = new Dictionary<string, int>();
-
+            
             foreach(var app in apps)
             {
                 var match = FindBestFuzzyMatch(app.PackageName, categoryLookup.Keys);
@@ -100,11 +100,7 @@ namespace Satera_Api.ML
                 {
                     var category = categoryLookup[match.MatchedCategory];
 
-                    if(!categoryTotals.ContainsKey(category))
-                    {
-                        categoryTotals[category] = 0;
-                    }
-
+                    categoryTotals.TryAdd(category, 0);
                     categoryTotals[category] += app.TotalTimeInForeground;
                 }
             }
@@ -123,16 +119,16 @@ namespace Satera_Api.ML
             {
                 switch(kvp.Key)
                 {
-                    case "Education":
+                    case string s when AcademicCategories.Contains(s):
                         academic += kvp.Value;
                         break;
-                    case "Social":
+                    case string s when SocialCategories.Contains(s):
                         social += kvp.Value;
                         break;
-                    case "Entertainment":
+                    case string s when EntertainmentCategories.Contains(s):
                         entertainment += kvp.Value;
                         break;
-                    case "Productivity":
+                    case string s when ProductivityCategories.Contains(s):
                         productivity += kvp.Value;
                         break;
                 }
@@ -199,6 +195,49 @@ namespace Satera_Api.ML
             int Social,
             int Entertainment);
 
+
+        // CATEGORIES
+
+        private static readonly HashSet<string> AcademicCategories = new()
+    {
+        "Knowledge",
+        "Reading",
+        "Tools",
+        "Creativity",
+        "News"
+    };
+
+        private static readonly HashSet<string> SocialCategories = new()
+    {
+        "Social_Media",
+        "Communication",
+        "Dating"
+    };
+
+        private static readonly HashSet<string> EntertainmentCategories = new()
+    {
+        "Visual_Entertainment",
+        "Gaming",
+        "Audio_Entertainment",
+        "Shopping",
+        "Food",
+        "Photo"
+    };
+
+        private static readonly HashSet<string> ProductivityCategories = new()
+    {
+        "System",
+        "Settings",
+        "Internet",
+        "Time",
+        "Career",
+        "Weather",
+        "Finance",
+        "Security",
+        "Transportation",
+        "Health",
+        "Orientation"
+    };
 
     }
 }
