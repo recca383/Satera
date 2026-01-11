@@ -37,8 +37,6 @@ app.MapPost("getMl/", async (
                 IAppDbContext dbContext,
                 CancellationToken cancellationToken) =>
 {
-    var testapp = dbContext.App_Categories.FirstOrDefault();
-
     var command = new GetMLAnalysisCommand(
         request.Gwa,
         request.TrackingDurationDays,
@@ -54,7 +52,7 @@ app.MapPost("getMl/", async (
     
     var result = await handler.Handle(command, cancellationToken);
 
-    return testapp;
+    return result.Match(Results.Ok, CustomResults.Problem);
 });
 
 app.Run();
