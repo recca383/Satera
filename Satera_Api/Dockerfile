@@ -3,9 +3,8 @@
 # Base runtime image (use .NET 9 to match the project TargetFramework)
 FROM mcr.microsoft.com/dotnet/aspnet:9.0 AS base
 WORKDIR /app
-ENV ASPNETCORE_URLS=http://+:8080;https://+:8081
+ENV ASPNETCORE_URLS=http://+:8080
 EXPOSE 8080
-EXPOSE 8081
 
 # Build image (use .NET SDK 9)
 FROM mcr.microsoft.com/dotnet/sdk:9.0 AS build
