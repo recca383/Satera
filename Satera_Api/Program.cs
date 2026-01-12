@@ -29,7 +29,8 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-app.UseHttpsRedirection();
+//app.UseHttpsRedirection();
+app.MapGet("/", () => "Server Running");
 
 app.MapPost("getMl/", async (
                 [FromBody]Request request,
