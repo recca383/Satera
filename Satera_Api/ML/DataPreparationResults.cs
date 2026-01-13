@@ -12,7 +12,8 @@
         float AcademicEffiencyLog,
         float UnlockIntensityLog,
         float SessionDepthLog,
-        float PickupsLog      
-        
+        float PickupsLog,
+        Dictionary<string, int> CategoryUsageSeconds
+
     );
 }
