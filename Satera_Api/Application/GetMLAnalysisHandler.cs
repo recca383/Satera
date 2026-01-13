@@ -69,12 +69,9 @@ namespace Satera_Api.Application
             var GetCategoryUsageSecondsResult = GetCategoryUsageSeconds(results.CategoryUsageSeconds);
             var reponse = new Response
             (
-               prediction.Scores[0],
-               prediction.Scores[1],
-               prediction.Scores[2],
-               prediction.Scores[3],
-               prediction.Scores[4],
-               prediction.Scores[5],
+               prediction.Scores.Max(),
+               ClassLabels[highestScoreIndex],
+               GetCategoryUsageSecondsResult,
                DateTime.UtcNow
             );
 
