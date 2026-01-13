@@ -64,6 +64,9 @@ namespace Satera_Api.Application
 
             var prediction = engine.Predict(inputs);
 
+            var highestScoreIndex = Array.IndexOf(prediction.Scores, prediction.Scores.Max());
+
+            var GetCategoryUsageSecondsResult = GetCategoryUsageSeconds(results.CategoryUsageSeconds);
             var reponse = new Response
             (
                prediction.Scores[0],
@@ -101,6 +104,19 @@ namespace Satera_Api.Application
             [VectorType(11)]
             [ColumnName("float_input")]
             public required float[] Features { get; set; }
+        }
+
+        private Dictionary<string, float> GetCategoryUsageSeconds(Dictionary<string, int> appUsageSeconds)
+        {
+            var totalseconds = appUsageSeconds.Values.Sum();
+            var result = new Dictionary<string, float>();
+
+            foreach(KeyValuePair<string, int> keyValue in appUsageSeconds)
+            {
+                result.TryAdd(keyValue.Key, ((float)keyValue.Value / totalseconds) * 100);
+            }
+
+            return result.OrderByDescending(s => s.Value).Take(5).ToDictionary();
         }
     }
 }
