@@ -77,7 +77,15 @@ namespace Satera_Api.Application
 
             return Result.Success(reponse);
         }
-
+        private readonly string[] ClassLabels = new[]
+        {
+            "AcademicAtRisk",
+            "AverageBalancedUser",
+            "DigitalMultitasker",
+            "DigitalSelfRegulated",
+            "HighFunctioningAcademic",
+            "MinimalDigitalengager",
+        };
         private class Prediction
         {
 
