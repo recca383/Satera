@@ -1,12 +1,9 @@
 ﻿namespace Satera_Api
 {
     public sealed record Response(
-        float AcademicAtRiskScore,
-        float AverageBalancedUserScore,
-        float DigitalMultitaskerScore,
-        float DigitalSelfRegulatedScore,
-        float HighFunctioningAcademicScore,
-        float MinimalDigitalengagerScore,
+        float Score,
+        string Label,
+        Dictionary<string, float> CategoryScores,
         DateTime DateAnalyzed
         );
 }
