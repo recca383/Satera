@@ -25,7 +25,9 @@ namespace Satera_Api.ML
             var unlockIntensityLog = CalculateUnlockIntensityLog(inputData.DeviceUnlocks, inputData.TotalScreenTime);
             var pickupsLog = ApplyLogTransform(inputData.Pickups);
 
-            var groupedUsage = CategorizeAndAggregate(inputData.Apps, appDictionary);
+            var groupUsageTable = CategorizeAndAggregate(inputData.Apps, appDictionary);
+
+            var groupedUsage = GroupCategories(groupUsageTable);
 
             var academicLog = ApplyLogTransform(groupedUsage.Academic);
             var productivityLog = ApplyLogTransform(groupedUsage.Productivity);
@@ -46,7 +48,8 @@ namespace Satera_Api.ML
                 academicEfficiencyLog,
                 unlockIntensityLog,
                 sessionDepthLog,
-                pickupsLog
+                pickupsLog,
+                groupUsageTable
                 );
 
         }
@@ -88,7 +91,7 @@ namespace Satera_Api.ML
             return ApplyLogTransform(focus / (distraction + 1));
         }
 
-        private UsageGroups CategorizeAndAggregate(App[] apps, Dictionary<string, string> categoryLookup)
+        private Dictionary<string, int> CategorizeAndAggregate(App[] apps, Dictionary<string, string> categoryLookup)
         {
             var categoryTotals = new Dictionary<string, int>();
             
@@ -105,7 +108,7 @@ namespace Satera_Api.ML
                 }
             }
 
-            return GroupCategories(categoryTotals);
+            return categoryTotals;
         }
 
         private UsageGroups GroupCategories(Dictionary<string, int> categoryTotals)
