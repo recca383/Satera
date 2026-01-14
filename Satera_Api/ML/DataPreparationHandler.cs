@@ -56,9 +56,9 @@ namespace Satera_Api.ML
         private float ScaleGwa(float gwa)
         {
             const float min = 1.0f;
-            const float max = 5.0f;
+            const float max = 2.5f;
 
-            return (gwa - min) / (max - min);
+            return (max - gwa) / (max - min);
         }
         private float CalculateSessionDepthLog(int totalscreentime, int pickups)
         {
