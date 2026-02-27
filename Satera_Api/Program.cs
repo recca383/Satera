@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Satera_Api;
 using Satera_Api.Application;
+using Satera_Api.Application.ML;
 using Satera_Api.Data;
 using Satera_Api.Helper;
 using Satera_Api.ML;
@@ -14,6 +15,7 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddScoped<IGetMLAnalysisHandler, GetMLAnalysisHandler>();
 builder.Services.AddScoped<IDataPreparationHandler, DataPreparationHandler>();
+builder.Services.AddSingleton<IMLEngine, MLEngine>();
 
 var env = builder.Environment;
 var dbPath = Path.Combine(env.ContentRootPath, "Static", "App_Categorization.db");
